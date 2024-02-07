@@ -16,6 +16,11 @@ export default function RootLayout({
     <html lang="es">
       <head>
         <meta charSet="utf-8" />
+        <link
+          rel="shortcut icon"
+          href="/images/favicon.ico"
+          type="image/x-icon"
+        />
       </head>
       <body>{children}</body>
     </html>
