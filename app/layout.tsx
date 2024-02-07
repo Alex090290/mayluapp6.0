@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "bootswatch/dist/cyborg/bootstrap.css";
 
 export const metadata: Metadata = {
   title: "Mayluapp6.0",
