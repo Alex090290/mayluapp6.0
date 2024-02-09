@@ -1,7 +1,7 @@
 "use client";
 
-import { hora } from "@/helpers/date-formats";
-import { Container, Navbar } from "react-bootstrap";
+import { Container, ListGroup, Navbar } from "react-bootstrap";
+import Clock from "./Clock";
 
 function TopNav() {
   return (
@@ -12,6 +12,13 @@ function TopNav() {
             Maylu app
           </span>
         </Navbar.Brand>
+        <ListGroup horizontal>
+          <ListGroup.Item></ListGroup.Item>
+          <ListGroup.Item className="fs-5 px-1 p-0">
+            <Clock />
+          </ListGroup.Item>
+          <ListGroup.Item></ListGroup.Item>
+        </ListGroup>
       </Container>
     </Navbar>
   );
