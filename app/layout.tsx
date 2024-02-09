@@ -22,7 +22,9 @@ export default function RootLayout({
           type="image/x-icon"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <main className="container-fluid vh-100 border">{children}</main>
+      </body>
     </html>
   );
 }
