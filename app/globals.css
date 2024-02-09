@@ -1,1 +1,3 @@
-
+.none-select {
+  user-select: none;
+}

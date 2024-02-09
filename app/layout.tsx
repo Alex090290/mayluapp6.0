@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "bootswatch/dist/cyborg/bootstrap.css";
+import TopNav from "@/components/navigation/TopNav";
 
 export const metadata: Metadata = {
   title: "Mayluapp6.0",
@@ -23,7 +24,10 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <main className="container-fluid vh-100 border">{children}</main>
+        <main className="container-fluid vh-100">
+          <TopNav />
+          {children}
+        </main>
       </body>
     </html>
   );
