@@ -26,7 +26,13 @@ export default function RootLayout({
       <body>
         <main className="container-fluid vh-100">
           <TopNav />
-          {children}
+          <div
+            style={{ height: "90vh", overflowY: "auto" }}
+            className="border"
+            id="pages-container"
+          >
+            {children}
+          </div>
         </main>
       </body>
     </html>
