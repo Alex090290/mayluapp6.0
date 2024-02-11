@@ -1,6 +1,6 @@
 "use client";
 
-import { Container, ListGroup, Navbar } from "react-bootstrap";
+import { Container, Dropdown, ListGroup, Navbar } from "react-bootstrap";
 import Clock from "./Clock";
 
 function TopNav() {
@@ -16,13 +16,15 @@ function TopNav() {
             Maylu app
           </span>
         </Navbar.Brand>
-        <ListGroup horizontal>
-          <ListGroup.Item></ListGroup.Item>
-          <ListGroup.Item className="fs-5 px-1 p-0">
-            <Clock />
-          </ListGroup.Item>
-          <ListGroup.Item></ListGroup.Item>
-        </ListGroup>
+        <div className="d-flex">
+          <Navbar.Text className="me-2 text-white">raguilar</Navbar.Text>
+          <ListGroup horizontal>
+            <ListGroup.Item className="fs-5 px-1 p-0">
+              <Clock />
+            </ListGroup.Item>
+          </ListGroup>
+          <Navbar.Text className="ms-2 link-hover">salir</Navbar.Text>
+        </div>
       </Container>
     </Navbar>
   );

@@ -1,3 +1,8 @@
 .none-select {
   user-select: none;
 }
+
+.link-hover:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
