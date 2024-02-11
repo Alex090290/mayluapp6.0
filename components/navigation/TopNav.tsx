@@ -10,6 +10,7 @@ function TopNav() {
     <Navbar
       bg="secondary"
       data-bs-theme="dark"
+      expand="lg"
       className="none-select rounded sticky-top"
     >
       <Container>
