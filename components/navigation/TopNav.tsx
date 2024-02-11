@@ -5,7 +5,11 @@ import Clock from "./Clock";
 
 function TopNav() {
   return (
-    <Navbar bg="success" data-bs-theme="dark" className="none-select">
+    <Navbar
+      bg="secondary"
+      data-bs-theme="dark"
+      className="none-select rounded sticky-top"
+    >
       <Container>
         <Navbar.Brand>
           <span className="bg-light p-2 rounded border border-2 border-white">

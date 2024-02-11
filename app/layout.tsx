@@ -24,7 +24,7 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <main className="container-fluid vh-100">
+        <main className="container-fluid vh-100 pt-1">
           <TopNav />
           <div
             style={{ height: "90vh", overflowY: "auto" }}
