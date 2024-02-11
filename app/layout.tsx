@@ -29,7 +29,7 @@ export default function RootLayout({
           <div
             style={{ height: "90vh", overflowY: "auto" }}
             id="pages-container"
-            className="container-fluid mt-1"
+            className="container-fluid mt-1 main-logo"
           >
             {children}
           </div>
