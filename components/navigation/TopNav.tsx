@@ -29,6 +29,12 @@ function TopNav() {
             <Link href="/tools" className="nav-link">
               Herramientas
             </Link>
+            <Link href="/movimientos" className="nav-link">
+              Movimientos
+            </Link>
+            <Link href="/utileria" className="nav-link">
+              Utilería
+            </Link>
           </Nav>
         </Navbar.Collapse>
         <div className="d-flex">
