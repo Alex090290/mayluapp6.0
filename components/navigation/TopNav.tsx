@@ -47,7 +47,7 @@ function TopNav() {
         </Navbar.Collapse>
         <div className="d-flex">
           <Navbar.Text className="me-2 fw-bolder">
-            <FaCircleUser />
+            <FaCircleUser className="me-1" />
             raguilar
           </Navbar.Text>
           <ListGroup horizontal>
