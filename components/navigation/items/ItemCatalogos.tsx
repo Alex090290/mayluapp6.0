@@ -4,10 +4,18 @@ import Link from "next/link";
 import { Button, NavDropdown } from "react-bootstrap";
 import { FaWarehouse, FaTruck, FaRegUserCircle } from "react-icons/fa";
 import { BsBoxes, BsPersonLinesFill } from "react-icons/bs";
+import { FaBook } from "react-icons/fa6";
 
 function ItemCatalogos() {
   return (
-    <NavDropdown title="Catálogos">
+    <NavDropdown
+      title={
+        <>
+          <FaBook className="me-1" />
+          Catálogos
+        </>
+      }
+    >
       <Link href="/almacenes" className="dropdown-item">
         <FaWarehouse className="me-2" />
         Almacenes
