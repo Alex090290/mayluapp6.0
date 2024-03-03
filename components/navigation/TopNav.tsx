@@ -8,6 +8,7 @@ import { ImExit } from "react-icons/im";
 import { FaCircleUser, FaToolbox } from "react-icons/fa6";
 import { FaStore, FaTools } from "react-icons/fa";
 import { BsGearFill } from "react-icons/bs";
+import ItemPuntoVenta from "./items/ItemPuntoVenta";
 
 function TopNav() {
   return (
@@ -26,10 +27,7 @@ function TopNav() {
         <Navbar.Toggle aria-controls="topnav" />
         <Navbar.Collapse id="topnav">
           <Nav className="me-auto">
-            <Link href="/puntoventa" className="nav-link">
-              <FaStore className="me-1" />
-              Punto de Venta
-            </Link>
+            <ItemPuntoVenta />
             <ItemCatalogos />
             <Link href="/tools" className="nav-link">
               <FaTools className="me-1" />
