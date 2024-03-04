@@ -13,3 +13,8 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.bg-gradient {
+  background: #909189;
+  background: linear-gradient(135deg, #909189, #202523);
+}

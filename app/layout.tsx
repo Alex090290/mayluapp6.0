@@ -24,10 +24,10 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <main className="container-fluid vh-100">
+        <main className="container-fluid vh-100 bg-gradient">
           <TopNav />
           <div
-            style={{ height: "90vh", overflowY: "auto" }}
+            style={{ height: "92vh", overflowY: "auto" }}
             id="pages-container"
             className="container-fluid main-logo"
           >
