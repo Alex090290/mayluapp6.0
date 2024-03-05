@@ -18,3 +18,7 @@
   background: #909189;
   background: linear-gradient(135deg, #909189, #202523);
 }
+
+link-hover:hover {
+  text-decoration: underline;
+}

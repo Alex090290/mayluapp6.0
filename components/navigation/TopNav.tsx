@@ -20,9 +20,12 @@ function TopNav() {
     >
       <Container>
         <Navbar.Brand>
-          <span className="bg-light text-white p-2 rounded border border-2 border-white">
+          <Link
+            className="bg-light text-white p-2 rounded border border-2 border-white text-decoration-none"
+            href="/"
+          >
             Maylu app
-          </span>
+          </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="topnav" />
         <Navbar.Collapse id="topnav">
@@ -41,13 +44,13 @@ function TopNav() {
               <FaToolbox className="me-1" />
               Utilería
             </Link>
+            <Navbar.Text className="ms-4 fw-bolder">
+              <FaCircleUser className="me-1" />
+              raguilar
+            </Navbar.Text>
           </Nav>
         </Navbar.Collapse>
         <div className="d-flex">
-          <Navbar.Text className="me-2 fw-bolder">
-            <FaCircleUser className="me-1" />
-            raguilar
-          </Navbar.Text>
           <ListGroup horizontal>
             <ListGroup.Item className="fs-5 px-1 p-0">
               <Clock />

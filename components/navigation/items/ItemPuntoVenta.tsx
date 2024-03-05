@@ -17,14 +17,18 @@ function ItemPuntoVenta() {
         </>
       }
     >
-      <Link href="/puntoventa/regventas" className="dropdown-item">
-        <MdOutlinePointOfSale className="me-2" />
-        Registro de Ventas
-      </Link>
-      <Link href="/puntoventa/caja" className="dropdown-item">
-        <FaCashRegister className="me-2" />
-        Caja
-      </Link>
+      <NavDropdown.Item className="p-0">
+        <Link href="/puntoventa/regventas" className="dropdown-item">
+          <MdOutlinePointOfSale className="me-2" />
+          Registro de Ventas
+        </Link>
+      </NavDropdown.Item>
+      <NavDropdown.Item className="p-0">
+        <Link href="/puntoventa/caja" className="dropdown-item">
+          <FaCashRegister className="me-2" />
+          Caja
+        </Link>
+      </NavDropdown.Item>
       <NavDropdown.Item as="button">
         <ImDrawer className="me-2" />
         Abrir Cajón
