@@ -1,12 +1,9 @@
 import FormOperadores from "@/components/operadores/FormOperadores";
 import Link from "next/link";
-import { Button } from "react-bootstrap";
 
 function OperadoresPage({
-  params,
   searchParams,
 }: {
-  params: {};
   searchParams: { view: string; model: string };
 }) {
   const { view, model } = searchParams;
