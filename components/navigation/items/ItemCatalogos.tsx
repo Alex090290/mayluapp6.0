@@ -16,31 +16,31 @@ function ItemCatalogos() {
         </>
       }
     >
-      <NavDropdown.Item className="p-0">
+      <NavDropdown.Item className="p-0" as="span">
         <Link href="/catalogos/almacenes" className="dropdown-item">
           <FaWarehouse className="me-2" />
           Almacenes
         </Link>
       </NavDropdown.Item>
-      <NavDropdown.Item className="p-0">
+      <NavDropdown.Item className="p-0" as="span">
         <Link href="/catalogos/productos" className="dropdown-item">
           <BsBoxes className="me-2" />
           Productos
         </Link>
       </NavDropdown.Item>
-      <NavDropdown.Item className="p-0">
+      <NavDropdown.Item className="p-0" as="span">
         <Link href="/catalogos/clientes" className="dropdown-item">
           <BsPersonLinesFill className="me-2" />
           Clientes
         </Link>
       </NavDropdown.Item>
-      <NavDropdown.Item className="p-0">
+      <NavDropdown.Item className="p-0" as="span">
         <Link href="/catalogos/proveedores" className="dropdown-item">
           <FaTruck className="me-2" />
           Proveedores
         </Link>
       </NavDropdown.Item>
-      <NavDropdown.Item className="p-0">
+      <NavDropdown.Item className="p-0" as="span">
         <Link href="/catalogos/operadores" className="dropdown-item">
           <FaRegUserCircle className="me-2" />
           Operadores

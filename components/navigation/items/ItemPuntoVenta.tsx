@@ -17,13 +17,13 @@ function ItemPuntoVenta() {
         </>
       }
     >
-      <NavDropdown.Item className="p-0">
+      <NavDropdown.Item className="p-0" as="span">
         <Link href="/puntoventa/regventas" className="dropdown-item">
           <MdOutlinePointOfSale className="me-2" />
           Registro de Ventas
         </Link>
       </NavDropdown.Item>
-      <NavDropdown.Item className="p-0">
+      <NavDropdown.Item className="p-0" as="span">
         <Link href="/puntoventa/caja" className="dropdown-item">
           <FaCashRegister className="me-2" />
           Caja

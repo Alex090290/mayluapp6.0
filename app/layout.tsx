@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "bootswatch/dist/cyborg/bootstrap.css";
+import "react-toastify/ReactToastify.css";
 import TopNav from "@/components/navigation/TopNav";
 
 export const metadata: Metadata = {
