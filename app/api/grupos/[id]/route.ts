@@ -13,7 +13,16 @@ export async function GET(
     const result: any = await conn.query("SELECT * FROM grupos WHERE id=?", [
       grupoId,
     ]);
-    return NextResponse.json({ res: "success", data: result[0] });
+
+    const usersCount: any = await conn.query(
+      "SELECT COUNT(nombre) AS `users` FROM `maylu`.`operadores` WHERE grupoid = ?",
+      [grupoId]
+    );
+    const data = {
+      grupo: result[0],
+      users: usersCount[0],
+    };
+    return NextResponse.json({ res: "success", data });
   } catch (error: any) {
     return NextResponse.json({
       res: "error",

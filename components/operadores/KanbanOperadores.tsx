@@ -2,11 +2,14 @@
 import { useEffect, useState } from "react";
 import KanbanCard from "./KanbanCard";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { FaRegUserCircle, FaSearch } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 function KanbanOperadores({ listOpers }: { listOpers: string }) {
+  const searchParams = useSearchParams();
   const router = useRouter();
+
   const parsedList: any[] = JSON.parse(listOpers);
 
   const [opers, setOpers] = useState<any[]>(parsedList);
@@ -42,16 +45,29 @@ function KanbanOperadores({ listOpers }: { listOpers: string }) {
     }
   };
 
+  const filtrarPorGrupo = (grupoId: string) => {
+    const result: any[] = parsedList.filter((s) => s.grupoid == grupoId);
+    // console.log(result);
+    setOpers(result);
+  };
+
+  const verTodos = () => {
+    setOpers(parsedList);
+    router.replace("/catalogos/operadores");
+  };
+
   useEffect(() => {
-    // if (parsedList.length === 0) {
-    //   router.replace("/login");
-    // }
-  }, []);
+    if (searchParams.get("filter") && searchParams.get("record")) {
+      const grupoId: string | null = searchParams.get("record");
+      if (!grupoId) return;
+      filtrarPorGrupo(grupoId);
+    }
+  }, [searchParams]);
 
   return (
     <Container fluid>
       <Row>
-        <Col className="d-flex justify-content-between mb-2">
+        <Col md="12" className="d-flex justify-content-between mb-2">
           <Form className="ms-2" onSubmit={handleSubmit}>
             <Row>
               <Form.Group className="col-10 p-0">
@@ -75,6 +91,9 @@ function KanbanOperadores({ listOpers }: { listOpers: string }) {
               </Button>
             </Row>
           </Form>
+          <Button size="sm" variant="secondary" onClick={verTodos}>
+            Todos
+          </Button>
           <small className="me-2">Registros: {opers.length}</small>
         </Col>
       </Row>

@@ -2,19 +2,23 @@
 
 import { accesos } from "@/helpers/accesos";
 import axios, { AxiosResponse } from "axios";
-import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Button, Col, Form, Row, Spinner } from "react-bootstrap";
+import { Button, Col, Form, ListGroup, Row, Spinner } from "react-bootstrap";
 import { CiSaveUp2 } from "react-icons/ci";
 import { ToastContainer, toast } from "react-toastify";
 
 function FormAccesos() {
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   const [values, setValues] = useState<Accesos>(accesos);
   const [isSelected, setIsSelected] = useState<boolean>(true);
-  const [grupoName, setGrupoName] = useState<string>("");
+  const [grupoInfo, setGrupoInfo] = useState<any>({
+    nombre: "",
+    users: 0,
+    grupoid: "",
+  });
   const [loading, setLoading] = useState<boolean>(false);
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
@@ -51,10 +55,14 @@ function FormAccesos() {
     setLoading(true);
     const { data }: AxiosResponse = await axios.get(`/api/grupos/${grupoId}`);
     if (data.res === "success") {
-      const parsedAccesos: Accesos = JSON.parse(data.data.accesos);
+      const parsedAccesos: Accesos = JSON.parse(data.data.grupo.accesos);
       setIsSelected(false);
       setValues(parsedAccesos);
-      setGrupoName(data.data.nombre);
+      setGrupoInfo({
+        nombre: data.data.grupo.nombre,
+        users: data.data.users.users,
+        grupoid: data.data.grupo.id,
+      });
       setLoading(false);
     }
   };
@@ -73,14 +81,29 @@ function FormAccesos() {
   return (
     <Form onSubmit={handleSubmit} style={{}} className="card none-select">
       <div className="card-header d-flex justify-content-between">
-        <span>
-          Grupo:{" "}
-          {loading ? (
-            <Spinner animation="border" size="sm" className="me-2" />
-          ) : (
-            <strong className="text-capitalize">{grupoName}</strong>
-          )}
-        </span>
+        <ListGroup horizontal>
+          <ListGroup.Item style={{ width: "210px" }}>
+            {loading ? (
+              <Spinner animation="border" size="sm" className="me-2" />
+            ) : (
+              <span>
+                Grupo:{" "}
+                <strong className="text-capitalize">{grupoInfo.nombre}</strong>
+              </span>
+            )}
+          </ListGroup.Item>
+          <ListGroup.Item>
+            <Link
+              href={`/catalogos/operadores?filter=operadoresbygrupo&record=${grupoInfo.grupoid}`}
+              className="text-decoration-none text-white"
+            >
+              Usuarios:
+              <span className="badge bg-primary ms-1 link-hover">
+                {grupoInfo.users}
+              </span>
+            </Link>
+          </ListGroup.Item>
+        </ListGroup>
         <Button variant="success" size="sm" type="submit" disabled={isSelected}>
           {isSaved ? (
             <Spinner animation="border" size="sm" className="me-2" />

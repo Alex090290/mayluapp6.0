@@ -14,6 +14,7 @@ export async function GET(
       "SELECT * FROM operadores WHERE id=?",
       [operId]
     );
+    // console.table({ res: result[0] });
     return NextResponse.json({ res: "success", data: result[0] });
   } catch (error: any) {
     return NextResponse.json({
