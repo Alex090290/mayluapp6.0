@@ -2,6 +2,7 @@ import FormOperadores from "@/components/operadores/FormOperadores";
 import KanbanOperadores from "@/components/operadores/KanbanOperadores";
 import Link from "next/link";
 import conn from "@/lib/connect";
+import FormGrupos from "@/components/grupos/FormGrupos";
 
 async function getOperadores(): Promise<any[]> {
   try {
@@ -30,7 +31,8 @@ async function OperadoresPage({
   const LayoutView = () => {
     if (view === "form" && model === "operadores") {
       return <FormOperadores />;
-    } else if (null) {
+    } else if (view === "form" && model === "grupos") {
+      return <FormGrupos />;
     } else {
       return <KanbanOperadores listOpers={data} />;
     }
@@ -51,7 +53,18 @@ async function OperadoresPage({
             href="/catalogos/operadores"
             className="text-decoration-none text-dark ms-2"
           >
-            <span className="link-hover text-primary">Operadores</span>
+            <span className="link-hover text-white">{"< "}Operadores</span>
+          </Link>
+        </>
+      );
+    } else if (view === "form" && model === "grupos") {
+      return (
+        <>
+          <Link
+            href="/catalogos/operadores"
+            className="text-decoration-none text-dark ms-2"
+          >
+            <span className="link-hover text-white">{"< "}Operadores</span>
           </Link>
         </>
       );
@@ -68,7 +81,7 @@ async function OperadoresPage({
             href="/catalogos/operadores?view=form&model=grupos"
             className="ms-4 text-decoration-none"
           >
-            Grupos
+            <span className="link-hover text-white">Grupos{" >"}</span>
           </Link>
         </>
       );

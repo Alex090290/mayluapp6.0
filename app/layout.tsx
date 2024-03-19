@@ -3,6 +3,7 @@ import "./globals.css";
 import "bootswatch/dist/cyborg/bootstrap.css";
 import "react-toastify/ReactToastify.css";
 import TopNav from "@/components/navigation/TopNav";
+import CheckSession from "./CheckSession";
 
 export const metadata: Metadata = {
   title: "Mayluapp6.0",
@@ -34,6 +35,7 @@ export default function RootLayout({
           >
             {children}
           </div>
+          <CheckSession />
         </main>
       </body>
     </html>

@@ -3,13 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import useOperadores from "@/hooks/operadores";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Button, Col, Form, ListGroup, Row } from "react-bootstrap";
+import { Button, Col, Form, ListGroup, Row, Spinner } from "react-bootstrap";
 import { CiSaveUp2 } from "react-icons/ci";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { toast, ToastContainer } from "react-toastify";
 import axios, { AxiosResponse } from "axios";
 import { fechaYhora } from "@/helpers/date-formats";
 import ModalConfirm from "../modals/ModalConfirm";
+import useGrupos from "@/hooks/grupos";
 
 const INIT_VALUES = {
   id: undefined,
@@ -33,11 +34,14 @@ function FormOperadores() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [createOperador] = useOperadores((st) => [st.createOperador]);
+  const [grupos, fetchGrupos] = useGrupos((st) => [st.grupos, st.fetchGrupos]);
 
   const [values, setValues] = useState<Operador>(INIT_VALUES);
   const [pswd2, setPswd2] = useState<string>("");
   const [editMode, setEditMode] = useState<boolean>(false);
   const [modalConfirm, setModalConfirm] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [loadingUser, setLoadingUser] = useState<boolean>(false);
 
   const handleValues = (e: FormEvents["onChange"]) => {
     setValues({
@@ -70,6 +74,7 @@ function FormOperadores() {
 
   const handleSubmit = async (e: FormEvents["onSubmit"]) => {
     e.preventDefault();
+    setLoading(true);
     if (editMode) {
       const operId: string | null = searchParams.get("record");
       if (!operId) return;
@@ -81,6 +86,7 @@ function FormOperadores() {
       if (data.res === "success") {
         router.refresh();
         toast.success("Operación completada", { position: "top-center" });
+        setLoading(false);
       }
     } else {
       if (values.pswd !== pswd2) {
@@ -95,7 +101,12 @@ function FormOperadores() {
         return;
       }
 
-      const res: any = await createOperador(values);
+      const newValues = {
+        ...values,
+        usuario: values.usuario.toLowerCase().trim(),
+      };
+
+      const res: any = await createOperador(newValues);
 
       // verifica registros duplicados
       if (res.errorCode === "ER_DUP_ENTRY") {
@@ -113,6 +124,7 @@ function FormOperadores() {
         router.replace(
           "/catalogos/operadores?view=form&model=operadores&action=reset"
         );
+        setLoading(false);
         router.refresh();
       }
     }
@@ -138,6 +150,7 @@ function FormOperadores() {
   };
 
   const fetchOperData = async (operId: string) => {
+    setLoadingUser(true);
     const { data }: AxiosResponse = await axios.get(
       `/api/operadores/${operId}`
     );
@@ -151,6 +164,7 @@ function FormOperadores() {
       createdby: data.data.createdby,
       empresas: JSON.parse(data.data.empresas),
     });
+    setLoadingUser(false);
   };
 
   useEffect(() => {
@@ -167,26 +181,40 @@ function FormOperadores() {
       router.replace("/catalogos/operadores?view=form&model=operadores");
     }
   }, [searchParams]);
+
+  useEffect(() => {
+    fetchGrupos();
+  }, []);
   return (
-    <Form onSubmit={handleSubmit} className="card border-success bg-light">
+    <Form onSubmit={handleSubmit} className="card border-secondary bg-light">
       <div className="card-body">
         <Row className="mb-3">
           <Col xs="12">
             <Button variant="success" size="sm" type="submit">
-              <CiSaveUp2 className="me-2" />
+              {loading ? (
+                <Spinner animation="border" size="sm" className="me-2" />
+              ) : (
+                <CiSaveUp2 className="me-2" />
+              )}
               {editMode ? "Editar" : "Guardar"}
             </Button>
-            {editMode ? (
+            {editMode && (
               <Button
                 variant="danger"
                 title="Eliminar"
                 size="sm"
-                className="ms-2"
+                className="ms-2 me-5"
                 onClick={() => setModalConfirm(true)}
               >
                 <RiDeleteBin5Line />
               </Button>
-            ) : null}
+            )}
+            {loadingUser && (
+              <>
+                <Spinner animation="border" size="sm" className="me-2" />
+                Cargando operador...
+              </>
+            )}
           </Col>
         </Row>
         <Row>
@@ -216,7 +244,7 @@ function FormOperadores() {
               type="text"
               autoComplete="off"
               placeholder="Usuario..."
-              className="fs-5"
+              className="fs-5 text-lowercase"
               required
             />
             <Form.Text>p. ej. Primera letra de nombre y apellido</Form.Text>
@@ -263,7 +291,15 @@ function FormOperadores() {
               value={values.grupoid}
             >
               <option value="">Selecciona un grupo</option>
-              <option value="1">Grupo 1</option>
+              {grupos.map((grupo) => (
+                <option
+                  key={`selectgrupo#${grupo.id}-${grupo.nombre}`}
+                  value={grupo.id}
+                  className="text-capitalize"
+                >
+                  {grupo.nombre}
+                </option>
+              ))}
             </Form.Select>
             <Form.Text>Asigna un grupo al nuevo operador</Form.Text>
           </Form.Group>

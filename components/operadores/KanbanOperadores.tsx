@@ -1,10 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import KanbanCard from "./KanbanCard";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
-import { FaSearch } from "react-icons/fa";
+import { FaRegUserCircle, FaSearch } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 function KanbanOperadores({ listOpers }: { listOpers: string }) {
+  const router = useRouter();
   const parsedList: any[] = JSON.parse(listOpers);
 
   const [opers, setOpers] = useState<any[]>(parsedList);
@@ -39,6 +41,12 @@ function KanbanOperadores({ listOpers }: { listOpers: string }) {
       setOpers(result);
     }
   };
+
+  useEffect(() => {
+    // if (parsedList.length === 0) {
+    //   router.replace("/login");
+    // }
+  }, []);
 
   return (
     <Container fluid>

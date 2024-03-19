@@ -12,7 +12,7 @@ function KanbanCard({ operador }: { operador: KanbanOperador }) {
               className={`${operador.activo ? "text-success" : "text-danger"}`}
             >{`${operador.activo ? "activo" : "inactivo"}`}</span>
             <Link
-              href={`/catologos/operadores?view=form&model=grupos&record=${operador.grupoid}`}
+              href={`/catalogos/operadores?view=form&model=grupos&record=${operador.grupoid}`}
               className="text-decoration-none text-white text-capitalize"
             >
               {operador.name_grupo}
