@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Button, Col, Form, ListGroup, Row, Spinner } from "react-bootstrap";
 import { CiSaveUp2 } from "react-icons/ci";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import axios, { AxiosResponse } from "axios";
 import { fechaYhora } from "@/helpers/date-formats";
 import ModalConfirm from "../modals/ModalConfirm";
@@ -19,15 +19,15 @@ const INIT_VALUES = {
   pswd: "",
   grupoid: "",
   activo: false,
-  empresas: [],
+  almacenes: [],
   createdat: undefined,
   createdby: undefined,
 } as Operador;
 
-const list_empresas: Array<any> = [
-  { nombre: "empresa1" },
-  { nombre: "empresa2" },
-  { nombre: "empresa3" },
+const list_almacenes: Array<any> = [
+  { nombre: "almacen1" },
+  { nombre: "almacen2" },
+  { nombre: "almacen3" },
 ];
 function FormOperadores() {
   const userRef = useRef<HTMLInputElement>(null);
@@ -51,25 +51,25 @@ function FormOperadores() {
     });
   };
 
-  const handleEmpresas = (e: FormEvents["onChange"]) => {
+  const handleAlmacenes = (e: FormEvents["onChange"]) => {
     let nombre = e.target.value;
-    let list: any[] = [...values.empresas];
+    let list: any[] = [...values.almacenes];
     let findEmpresa = list.find((emp) => emp.nombre === nombre);
     if (!findEmpresa) {
-      list = [...values.empresas, { nombre }];
+      list = [...values.almacenes, { nombre }];
     } else {
       toast.warning("La empresa seleccionada ya se encuentra en la lista", {
         position: "top-center",
       });
     }
 
-    setValues({ ...values, empresas: list });
+    setValues({ ...values, almacenes: list });
   };
 
-  const removeEmpresa = (nombre: string) => {
-    let list: any[] = [...values.empresas];
+  const removeAlmacen = (nombre: string) => {
+    let list: any[] = [...values.almacenes];
     let filterList = list.filter((emp) => emp.nombre !== nombre);
-    setValues({ ...values, empresas: filterList });
+    setValues({ ...values, almacenes: filterList });
   };
 
   const handleSubmit = async (e: FormEvents["onSubmit"]) => {
@@ -107,6 +107,7 @@ function FormOperadores() {
       };
 
       const res: any = await createOperador(newValues);
+      console.log(res);
 
       // verifica registros duplicados
       if (res.errorCode === "ER_DUP_ENTRY") {
@@ -162,7 +163,7 @@ function FormOperadores() {
       activo: data.data.activo,
       createdat: data.data.createdat,
       createdby: data.data.createdby,
-      empresas: JSON.parse(data.data.empresas),
+      almacenes: JSON.parse(data.data.almacenes),
     });
     setLoadingUser(false);
   };
@@ -315,14 +316,14 @@ function FormOperadores() {
             />
           </Form.Group>
           <Form.Group className="col-10 col-sm-8 col-md-4 col-lg-3 mb-3">
-            <Form.Label className="fs-4">Empresas</Form.Label>
+            <Form.Label className="fs-4">Almacenes</Form.Label>
             <Form.Select
               className="fs-5"
-              name="empresas"
-              onChange={handleEmpresas}
+              name="almacenes"
+              onChange={handleAlmacenes}
             >
-              <option value="">Selecciona una empresa</option>
-              {list_empresas.map((emp, i) => (
+              <option value="">Selecciona un almacén</option>
+              {list_almacenes.map((emp, i) => (
                 <option key={`emp#${i}@form`} value={emp.nombre}>
                   {emp.nombre}
                 </option>
@@ -332,28 +333,26 @@ function FormOperadores() {
               style={{ height: "200px", overflowY: "auto" }}
               className="border"
             >
-              {values.empresas.map((emp: any, i: number) => (
+              {values.almacenes.map((alm: any, i: number) => (
                 <ListGroup.Item
-                  key={`emp#${i}@select`}
+                  key={`alm#${i}@select`}
                   className="d-flex justify-content-between text-uppercase"
                 >
-                  <span>{emp.nombre}</span>
+                  <span>{alm.nombre}</span>
                   <Button
                     variant="danger"
                     size="sm"
                     title="Quitar"
-                    onClick={() => removeEmpresa(emp.nombre)}
+                    onClick={() => removeAlmacen(alm.nombre)}
                   >
                     <RiDeleteBin5Line />
                   </Button>
                 </ListGroup.Item>
               ))}
             </ListGroup>
-            <Form.Text>
-              Selecciona una empresa para agregar a la lista
-            </Form.Text>
+            <Form.Text>Selecciona un almacén para agregar a la lista</Form.Text>
           </Form.Group>
-          <Form.Group className="col-10 col-sm-8 col-md-4 col-lg-3 mb-3 d-flex align-items-center">
+          <Form.Group className="col-10 col-sm-8 col-md-4 col-lg-3 mb-3 d-flex align-items-end">
             {editMode ? (
               <ListGroup>
                 <ListGroup.Item>Craedo por: {values.createdby}</ListGroup.Item>
@@ -366,7 +365,6 @@ function FormOperadores() {
         </Row>
         <Row></Row>
       </div>
-      <ToastContainer />
       <ModalConfirm
         show={modalConfirm}
         onHide={() => setModalConfirm(!modalConfirm)}

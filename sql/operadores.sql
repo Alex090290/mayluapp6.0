@@ -6,7 +6,7 @@ CREATE TABLE
         pswd varchar(200) not null,
         grupoid int not null,
         activo int not null default 0,
-        empresas json,
+        almacenes json,
         createdat timestamp default current_timestamp,
         createdby varchar(15) not null,
         primary key (id),

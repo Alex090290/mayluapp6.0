@@ -5,18 +5,18 @@ import conn from "@/lib/connect";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { usuario: user, pswd, empresas } = body;
+    const { usuario: user, pswd, almacenes } = body;
 
     // hash the  password
     const hashPswd: string = await genPswHash(pswd);
 
     // stringify empresas
-    const stringified: string = JSON.stringify(empresas);
+    const stringified: string = JSON.stringify(almacenes);
 
     const newOperador = {
       ...body,
       pswd: hashPswd,
-      empresas: stringified,
+      almacenes: stringified,
       createdby: "system",
       usuario: user.trim(),
     };

@@ -14,7 +14,6 @@ export async function GET(
       "SELECT * FROM operadores WHERE id=?",
       [operId]
     );
-    // console.table({ res: result[0] });
     return NextResponse.json({ res: "success", data: result[0] });
   } catch (error: any) {
     return NextResponse.json({
@@ -58,13 +57,13 @@ export async function PUT(
   try {
     // get the body
     const body = await req.json();
-    const { nombre, usuario, grupoid, activo, empresas } = body;
+    const { nombre, usuario, grupoid, activo, almacenes } = body;
     const newBody = {
       nombre,
       usuario,
       grupoid,
       activo,
-      empresas: JSON.stringify(empresas),
+      almacenes: JSON.stringify(almacenes),
     };
 
     // get id operador

@@ -5,7 +5,7 @@ type Operador = {
   pswd: string;
   grupoid: number | string;
   activo: boolean;
-  empresas: any;
+  almacenes: any;
   createdat?: string;
   createdby?: string;
 };

@@ -6,7 +6,7 @@ import ListGrupos from "./ListGrupos";
 import { accesos } from "@/helpers/accesos";
 import { useRef, useState } from "react";
 import useGrupos from "@/hooks/grupos";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
 const INIT_VALUES = {
@@ -42,9 +42,9 @@ function FormCreateGrupo() {
     }
 
     if (res.res === "success") {
-      // toast.success("Registro completado con éxito.", {
-      //   position: "top-center",
-      // });
+      toast.success("Registro completado con éxito.", {
+        position: "top-center",
+      });
       setValues(INIT_VALUES);
       setLoading(false);
     }
